@@ -144,7 +144,7 @@ public class Search extends Fragment {
     public void textAppear(TextView rowTextView){
 
             rowTextView = new TextView(Search.this.getActivity());
-            rowTextView.setText("Hey");
+            rowTextView.setText("Results");
             rowTextView.setLayoutParams(new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));

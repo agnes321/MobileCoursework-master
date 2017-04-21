@@ -83,6 +83,16 @@ public class Movie {
         this.vote_count = vote_count;
     }
 
+    @Override
+    public String toString(){
+
+        return this.getTitle() + "\n" + this.getOverview() + "\n" +
+                this.getRelease_date() + "\n" + this.getOriginal_title() +
+                "\n" + this.getOriginal_language() + "\n" + this.getPopularity() +
+                "\n" + this.getVote_average() + "\n" + this.getVote_count() + "\n";
+
+    }
+
 //    @Override
 //    public String toString() {
 //        StringBuilder sb = new StringBuilder();

@@ -1,5 +1,7 @@
 package com.example.a1408876.films;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.*;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -33,6 +35,8 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,10 +48,11 @@ public class Search extends Fragment {
 
     private SearchView searchField;
     private ListView lv;
-    private ArrayList<Movie> movies;
+    public ArrayList<Movie> movies;
     private Button b;
     private TextView tv;
     private String s;
+    DatabaseHelper myDatabaseHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -168,7 +173,54 @@ public class Search extends Fragment {
             "\nVote average\n" + movies.get(position).getVote_average() +
             "\nVote count\n" + movies.get(position).getVote_count());
 
+            final String t = movies.get(position).getTitle();
+            final String o = movies.get(position).getOverview();
+            final String rd = movies.get(position).getRelease_date();
+            final String ot = movies.get(position).getOriginal_title();
+            final String ol = movies.get(position).getOriginal_language();
+            final String p = movies.get(position).getPopularity();
+            final String va = movies.get(position).getVote_average();
+            final String vc = movies.get(position).getVote_count();
+
+            final Button btt = (Button) v.findViewById(R.id.saveButton);
+            myDatabaseHelper = new DatabaseHelper(Search.this.getActivity());
+            boolean checking = myDatabaseHelper.checkIfDataExists(movies.get(position).getOverview());
+
+            btt.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+                    btt.setEnabled(false);
+                    btt.setText("Saved to your watchlist!");
+                    addNewData(t, o, rd, ot, ol, p, va, vc, "");
+                }
+            });
+            if (checking){
+                btt.setEnabled(false);
+                btt.setText("Saved to your watchlist!");
+            } else{
+            }
+
             return v;
         }
+
+
+
+
     }
+
+    public void addNewData(String title, String overview, String rd, String ot, String ol, String p, String va, String vc, String n){
+        myDatabaseHelper = new DatabaseHelper(Search.this.getActivity());
+        boolean insertData = myDatabaseHelper.addData(title, overview, rd, ot, ol, p, va, vc, n);
+        if(insertData){
+            Log.d("Success", "Data inserted");
+            System.out.println("Yes");
+        }
+        else{
+            Log.d("Failure", "Data not inserted");
+            System.out.println("No");
+        }
+    }
+
+
+
 }

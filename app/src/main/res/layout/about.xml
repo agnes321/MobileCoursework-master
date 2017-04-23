@@ -15,4 +15,14 @@
         android:text="About"
         />
 
+    <Button
+        android:id="@+id/openWatchlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/section_label"
+        android:layout_marginTop="97dp"
+        android:layout_toEndOf="@+id/section_label"
+        android:layout_toRightOf="@+id/section_label"
+        android:text="Go to Watchlist" />
+
 </RelativeLayout>

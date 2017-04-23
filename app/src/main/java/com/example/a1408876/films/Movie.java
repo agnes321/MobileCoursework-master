@@ -93,13 +93,4 @@ public class Movie {
 
     }
 
-//    @Override
-//    public String toString() {
-//        StringBuilder sb = new StringBuilder();
-//        for (String s : list)
-//        {
-//            sb.append(s);
-//            sb.append("\t");
-//        }
-//    }
 }

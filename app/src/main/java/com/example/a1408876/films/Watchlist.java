@@ -27,6 +27,7 @@ public class Watchlist extends Fragment {
     private ListView lv;
     private TextView tv;
     private ArrayList<Note> watchList;
+    private MyAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,26 +38,30 @@ public class Watchlist extends Fragment {
         myDatabaseHelper = new DatabaseHelper(getContext());
         watchList = populateWatchList();
         if (watchList != null) {
-            MyAdapter adapter = new MyAdapter(getContext(),watchList);
+            adapter = new MyAdapter(getContext(),watchList);
             lv.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
         }
         return rootView;
     }
 
-//    @Override
-//    public void onResume() {
-//
-//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        watchList = populateWatchList();
+        if (watchList != null) {
+            adapter.notifyDataSetChanged();
+        }
+    }
 
     private ArrayList<Note> populateWatchList(){
         Log.d("Watchlist", "Displaying data in watchlist");
         Cursor data = myDatabaseHelper.getData();
             if (data.getCount() != 0) {
                 ArrayList<Note> tempwatchlist = new ArrayList<Note>();
-                Note n = new Note();
+                //Note n = new Note();
                 data.moveToFirst();
                 do{
+                    Note n = new Note();
                     String title = data.getString(data.getColumnIndex("Title"));
                     String overview = data.getString(data.getColumnIndex("Overview"));
                     String releaseDate = data.getString(data.getColumnIndex("ReleaseDate"));

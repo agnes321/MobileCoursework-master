@@ -173,27 +173,12 @@ public class Search extends Fragment {
             "\nVote average\n" + movies.get(position).getVote_average() +
             "\nVote count\n" + movies.get(position).getVote_count());
 
-            final String t = movies.get(position).getTitle();
-            final String o = movies.get(position).getOverview();
-            final String rd = movies.get(position).getRelease_date();
-            final String ot = movies.get(position).getOriginal_title();
-            final String ol = movies.get(position).getOriginal_language();
-            final String p = movies.get(position).getPopularity();
-            final String va = movies.get(position).getVote_average();
-            final String vc = movies.get(position).getVote_count();
-
-            final Button btt = (Button) v.findViewById(R.id.saveButton);
+            Button btt = (Button) v.findViewById(R.id.saveButton);
             myDatabaseHelper = new DatabaseHelper(Search.this.getActivity());
             boolean checking = myDatabaseHelper.checkIfDataExists(movies.get(position).getOverview());
 
-            btt.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
+            btt.setOnClickListener(new MyOnClickListener(movies.get(position)));
 
-                    btt.setEnabled(false);
-                    btt.setText("Saved to your watchlist!");
-                    addNewData(t, o, rd, ot, ol, p, va, vc, "");
-                }
-            });
             if (checking){
                 btt.setEnabled(false);
                 btt.setText("Saved to your watchlist!");
@@ -221,6 +206,27 @@ public class Search extends Fragment {
         }
     }
 
+    public class MyOnClickListener implements View.OnClickListener {
+        private Movie movie;
 
+        public MyOnClickListener(Movie movie) {
+            this.movie = movie;
+        }
+
+        public void onClick(View v) {
+            String t = movie.getTitle();
+            String o = movie.getOverview();
+            String rd = movie.getRelease_date();
+            String ot = movie.getOriginal_title();
+            String ol = movie.getOriginal_language();
+            String p = movie.getPopularity();
+            String va = movie.getVote_average();
+            String vc = movie.getVote_count();
+
+            ((Button)v.findViewById(R.id.saveButton)).setEnabled(false);
+            ((Button)v.findViewById(R.id.saveButton)).setText("Saved to your watchlist!");
+            addNewData(t, o, rd, ot, ol, p, va, vc, "");
+        }
+    }
 
 }

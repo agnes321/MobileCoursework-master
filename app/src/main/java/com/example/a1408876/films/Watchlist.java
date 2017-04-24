@@ -10,9 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -110,7 +113,26 @@ public class Watchlist extends Fragment {
             "\nVote average\n" + movies.get(position).getVote_average() + "\nVote count\n" + movies.get(position).getVote_count() +
             "\nMy note\n" + movies.get(position).getNote());
 
+            Button btt = (Button) v.findViewById(R.id.deleteButton);
+            btt.setOnClickListener(new MyOnClickListener(movies.get(position)));
+
+
             return v;
+        }
+
+        public class MyOnClickListener implements View.OnClickListener {
+            Note n = new Note();
+            public MyOnClickListener(Note n) {
+                this.n = n;
+            }
+            public void onClick(View v) {
+                Button delete = (Button) v.findViewById(R.id.deleteButton);
+                TextView tv = (TextView) v.findViewById(R.id.watchlistItem);
+                //tv.setText(n.getTitle() + " was deleted from your watchlist!");
+                myDatabaseHelper.deleteData(n.getTitle(), n.getRelease_date());
+                //delete.setEnabled(false);
+
+            }
         }
     }
 }

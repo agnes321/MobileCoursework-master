@@ -73,6 +73,14 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return data;
     }
 
+    public void deleteData(String fieldValue, String dataFieldValue){
+        SQLiteDatabase myDb = this.getReadableDatabase();
+        String query = "Delete from " + DB_NAME + " where " + "Title" + " ='" + fieldValue + "'" + " and " + "ReleaseDate" + " ='" + dataFieldValue + "'";
+        Log.d("Deleting", "Deleting from watchlist");
+        myDb.execSQL(query);
+
+    }
+
     public boolean checkIfDataExists(String fieldValue){
         SQLiteDatabase myDb = this.getReadableDatabase();
         String Query = "Select * from " + DB_NAME + " where " + "Overview" + " = ?;";

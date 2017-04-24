@@ -130,7 +130,8 @@ public class Watchlist extends Fragment {
                 TextView tv = (TextView) v.findViewById(R.id.watchlistItem);
                 //tv.setText(n.getTitle() + " was deleted from your watchlist!");
                 myDatabaseHelper.deleteData(n.getTitle(), n.getRelease_date());
-                //delete.setEnabled(false);
+                delete.setEnabled(false);
+                delete.setText("Deleted!");
 
             }
         }

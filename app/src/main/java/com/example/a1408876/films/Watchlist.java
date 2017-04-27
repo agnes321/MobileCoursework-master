@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +16,6 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -107,7 +105,7 @@ public class Watchlist extends Fragment {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = inflater.inflate(R.layout.watchlist_item, parent, false);
             TextView textView = (TextView) v.findViewById(R.id.watchlistItem);
-            textView.setText("Title\n" + movies.get(position).getTitle() + "\nOverview\n" + movies.get(position).getOverview() +
+            textView.setText("Title" + "\n" + movies.get(position).getTitle() + "\nOverview\n" + movies.get(position).getOverview() +
             "\nRelease date\n" + movies.get(position).getRelease_date() + "\nOriginal title\n" + movies.get(position).getOriginal_title() +
             "\nOriginal language\n" + movies.get(position).getOriginal_language() + "\nPopularity\n" + movies.get(position).getPopularity() +
             "\nVote average\n" + movies.get(position).getVote_average() + "\nVote count\n" + movies.get(position).getVote_count() +
